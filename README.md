@@ -1,4 +1,4 @@
-![Holberton school logo](https://secure.meetupstatic.com/photos/event/b/c/5/6/highres_475548214.jpeg)
+![Holberton school logo](https://github.com/Michaelndula/AirBnB_clone/raw/master/65f4a1dd9c51265f49d0.png?raw=true)
 # AirBnB clone - The console
 
 
