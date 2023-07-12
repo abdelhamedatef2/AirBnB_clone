@@ -1,7 +1,6 @@
 ![Holberton school logo](https://github.com/Michaelndula/AirBnB_clone/raw/master/65f4a1dd9c51265f49d0.png?raw=true)
 # AirBnB clone - The console
-
-
+<img src="https://s3.amazonaws.com/intranet-projects-files/concepts/74/hbnb_step2.png" width="1200" height="280">
 The AirBnB console this about create a minishell, this console works in interactive and non-interactive mode; this project is just a basic copy of AirBnB, 
 
 # command interpreter or console
