@@ -1,116 +1,78 @@
 #!/usr/bin/python3
-"""Test case FileStorage module"""
+""" unittest module to test file storage module with base_model module """
 import unittest
-import os
-import contextlib
-import json
-import models
-import pep8
-
-# class
-from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
-from models.amenity import Amenity
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
-from models.user import User
+from models import storage
+from models.engine import file_storage
+from models import __init__
 
 
 class TestFileStorage(unittest.TestCase):
-    """Test FileStorage"""
-
-    def test_pep8_FileStorage(self):
-        """Tests pep8 style"""
-        style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(['models/engine/file_storage.py'])
-        self.assertEqual(p.total_errors, 0, "fix pep8")
+    """ class inherit from unittest to test file storage module """
 
     def setUp(self):
-        """Sets up the class test"""
-
-        self.b1 = BaseModel()
-        self.a1 = Amenity()
-        self.c1 = City()
-        self.p1 = Place()
-        self.r1 = Review()
-        self.s1 = State()
-        self.u1 = User()
-        self.storage = FileStorage()
-        self.storage.save()
-        if os.path.exists("file.json"):
-            pass
-        else:
-            os.mknod("file.json")
+        """ method that initiate at first of each test """
+        self.new = BaseModel()
 
     def tearDown(self):
-        """Tears down the testing environment"""
+        """ method that intiate at end of each test """
+        del self.new
 
-        del self.b1
-        del self.a1
-        del self.c1
-        del self.p1
-        del self.r1
-        del self.s1
-        del self.u1
-        del self.storage
-        if os.path.exists("file.json"):
-            os.remove("file.json")
+    def test_doc_module(self):
+        """ method test if there doc for module """
+        doc = len(file_storage.__doc__.strip())
+        self.assertTrue(doc > 0)
+        doc = len(__init__.__doc__.strip())
+        self.assertTrue(doc > 0)
 
-    def test_all(self):
-        """Check the all"""
-        obj = self.storage.all()
-        self.assertIsNotNone(obj)
-        self.assertEqual(type(obj), dict)
-        self.assertIs(obj, self.storage._FileStorage__objects)
+    def test_doc_class(self):
+        """ method test if there doc for class """
+        doc = len(file_storage.FileStorage.__doc__.strip())
+        self.assertTrue(doc > 0)
 
-    def test_storage_empty(self):
-        """check the storage is not empty"""
+    def test_doc_all_method(self):
+        """ method test if there doc for all method """
+        doc = len(file_storage.FileStorage.all.__doc__.strip())
+        self.assertTrue(doc > 0)
 
-        self.assertIsNotNone(self.storage.all())
+    def test_doc_new_method(self):
+        """ method test if there doc for new method """
+        doc = len(file_storage.FileStorage.new.__doc__.strip())
+        self.assertTrue(doc > 0)
 
-    def test_storage_all_type(self):
-        """check the type of storage"""
+    def test_doc_save_method(self):
+        """ method test if there doc for save method """
+        doc = len(file_storage.FileStorage.save.__doc__.strip())
+        self.assertTrue(doc > 0)
 
-        self.assertEqual(dict, type(self.storage.all()))
+    def test_doc_reload_method(self):
+        """ method test if there doc for reload method """
+        doc = len(file_storage.FileStorage.reload.__doc__.strip())
+        self.assertTrue(doc > 0)
 
-    def test_new(self):
-        """check the new user"""
-        obj = self.storage.all()
-        self.u1.id = 1234
-        self.u1.name = "Julien"
-        self.storage.new(self.u1)
-        key = "{}.{}".format(self.u1.__class__.__name__, self.u1.id)
-        self.assertIsNotNone(obj[key])
+    def test_check_save(self):
+        """ check save of 'new' instance of base model """
+        all_obj = storage.all()
+        new_obj = all_obj[f"BaseModel.{self.new.id}"]
+        self.assertEqual(new_obj, self.new.to_dict())
 
-    def test_check_json_loading(self):
-        """ Checks if methods from Storage Engine works."""
+    def test_update_instance_save(self):
+        """ method test update instance and save it """
+        self.new.name = "new"
+        self.new.age = 10
+        self.new.save()
+        all_obj = storage.all()
+        new_obj = all_obj[f"BaseModel.{self.new.id}"]
+        self.assertEqual(new_obj, self.new.to_dict())
 
-        with open("file.json") as f:
-            dic = json.load(f)
-
-            self.assertEqual(isinstance(dic, dict), True)
-
-    def test_file_existence(self):
-        """
-        Checks if methods from Storage Engine works.
-        """
-
-        with open("file.json") as f:
-            self.assertTrue(len(f.read()) > 0)
-
-    def test_docstrings(self):
-        """Check the docString each function"""
-
-        self.assertTrue(FileStorage.all.__doc__)
-        self.assertTrue(hasattr(FileStorage, 'all'))
-        self.assertTrue(FileStorage.new.__doc__)
-        self.assertTrue(hasattr(FileStorage, 'new'))
-        self.assertTrue(FileStorage.save.__doc__)
-        self.assertTrue(hasattr(FileStorage, 'save'))
-        self.assertTrue(FileStorage.reload.__doc__)
-        self.assertTrue(hasattr(FileStorage, 'reload'))
+    def test_new_instance(self):
+        """ check new instance in storage """
+        new2 = BaseModel()
+        all_obj = storage.all()
+        new_obj = all_obj[f"BaseModel.{self.new.id}"]
+        self.assertEqual(new_obj, self.new.to_dict())
+        new_obj = all_obj[f"BaseModel.{new2.id}"]
+        self.assertEqual(new_obj, new2.to_dict())
 
 
 if __name__ == '__main__':
