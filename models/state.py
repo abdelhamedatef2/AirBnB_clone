@@ -1,13 +1,11 @@
 #!/usr/bin/python3
-'''class inherent of BaseModel'''
-from models.base_model import BaseModel
+""" module that represent state model """
+from .base_model import BaseModel
 
 
 class State(BaseModel):
-    '''class State'''
-
+    """ class of state model inherit from BaseModel class
+        Attr:
+            name: public class attr name of state
+    """
     name = ""
-
-    def __init__(self, *args, **kwargs):
-        """initializes State"""
-        super().__init__(*args, **kwargs)
