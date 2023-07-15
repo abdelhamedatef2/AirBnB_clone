@@ -1,13 +1,11 @@
 #!/usr/bin/python3
-'''class inherent of BaseModel'''
-from models.base_model import BaseModel
+""" module that represent amenity model """
+from .base_model import BaseModel
 
 
 class Amenity(BaseModel):
-    '''class amenity'''
-
+    """ class of amenity model inherit from BaseModel class
+        Attr:
+            name: public class attr name of amenity
+    """
     name = ""
-
-    def __init__(self, *args, **kwargs):
-        """initializes Amenity"""
-        super().__init__(*args, **kwargs)
