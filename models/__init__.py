@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-""" define method for model direc"""
+""" package module that entry point of package
+    contain storage variable that represent unique storage
+    for project
+"""
 from models.engine.file_storage import FileStorage
 
 storage = FileStorage()
