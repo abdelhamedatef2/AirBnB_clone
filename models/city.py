@@ -1,14 +1,13 @@
 #!/usr/bin/python3
-'''class inherent of BaseModel'''
-from models.base_model import BaseModel
+""" module that represent city class model """
+from .base_model import BaseModel
 
 
 class City(BaseModel):
-    '''class city'''
-
+    """ class of city model
+        Attr:
+            state_id: public class attr for State.id
+            name: plublic class attr for name of city
+    """
     state_id = ""
     name = ""
-
-    def __init__(self, *args, **kwargs):
-        """initializes City"""
-        super().__init__(*args, **kwargs)
